@@ -10,7 +10,7 @@
         }
     ],
 	"autoload": {
-        "psr-0" : { "Vatrikovsky\\Core" : "src/" }
+        "psr-4" : { "Vatrikovsky\\Core" : "src/" }
     },
 	"minimum-stability": "dev" 
 }
