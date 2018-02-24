@@ -2,6 +2,7 @@
 	"name": "vatrikovsky/core",
 	"description": "Just My Usual Lib",
 	"type": "package", 
+	"version": "1.0.0",
 	"authors": [
         {
             "name": "Roman Vatrikovsky",
