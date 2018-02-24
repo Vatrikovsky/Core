@@ -29,10 +29,10 @@ class DB extends Singleton {
 	
 	/* Config */
 	protected static function config( $host, $user, $pass, $name ) {
-		self:$host = $host;
-		self:$user = $user;
-		self:$pass = $pass;
-		self:$name = $name;
+		self::$host = $host;
+		self::$user = $user;
+		self::$pass = $pass;
+		self::$name = $name;
 	}
 
 
