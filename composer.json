@@ -1,0 +1,17 @@
+{
+	"name": "vatrikovsky/core",
+	"description": "Just My Usual Lib",
+	"type": "package", 
+	"authors": [
+        {
+            "name": "Roman Vatrikovsky",
+            "email": "roman@vatrikovsky.ru"
+        }
+    ],
+	"autoload": {
+        "psr-0" : {
+            "Vatrikovsky\\Core" : "src"
+        }
+    }
+	"minimum-stability": "dev" 
+}
