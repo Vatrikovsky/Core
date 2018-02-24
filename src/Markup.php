@@ -9,6 +9,7 @@ abstract class Markup {
 		'cleanup' => TRUE,
 		'strong' => TRUE,
 		'em' => TRUE,
+		'a' => TRUE,
 		'img' => TRUE,
 		'youtube' => TRUE,
 		'caption' => TRUE,
@@ -143,6 +144,26 @@ abstract class Markup {
 	
 	
 	
+	/* ((some-text)) -> <a href="...">...<a> */
+	/* ((some-text some-text-2)) -> <a href="...1">...2<a> */
+	public static function a( $text ) {
+		if ( !self::$methods['a'] ) return $text;
+		$text = preg_replace( 
+			'~\(\((https?://\S+)\)\)~im',  
+			'<a href="$1">$1</a>',
+			$text 
+		);
+		$text = preg_replace( 
+			'~\(\((https?://\S+)\s(.+)\)\)~im',  
+			'<a href="$1">$2</a>',
+			$text 
+		);
+		return $text;		
+	}
+	
+	
+	
+	
 	/* image.jpg -> <div class="v-image"><img src="..." /></div> */
 	public static function img( $text ) {
 		if ( !self::$methods['img'] or empty( self::$options['img_ext'] ) ) return $text;
@@ -159,24 +180,17 @@ abstract class Markup {
 	/* youtube -> <div class="v-video"><iframe /></div> */
 	public static function youtube( $text ) {
 		if ( !self::$methods['youtube'] ) return $text;
-		return preg_replace( 
+		$text = preg_replace( 
 			'~^\s*https?://(www\.)?youtube\.com/watch\?v=(\S+)\s*$~im',  
 			'<div class="v-video"><iframe width="640" height="360" src="https://www.youtube.com/embed/$2" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>',
-			self::youtubeShort( $text )
+			$text
 		);
-	}
-	
-	
-	
-	
-	/* Extends Youtube Method */
-	protected static function youtubeShort( $text ) {
-		if ( !self::$methods['youtube'] ) return $text;
-		return preg_replace( 
+		$text = preg_replace( 
 			'~^\s*https?://(www\.)?youtu\.be/(\S+)(&|\s|$)~im',  
 			'<div class="v-video">$2</div>',
 			$text 
 		);
+		return $text;
 	}
 	
 	

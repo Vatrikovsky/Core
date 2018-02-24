@@ -12,6 +12,9 @@ else
 		'image.png    ' . "\r\n" .
 		'Caption for Image' . "\r\n" .
 		"\r\n" .
+		'((http://ya.ru)) ((Just letters))' . "\r\n" .
+		"\r\n" .
+		"\r\n" .
 		' https://www.youtube.com/watch?v=Ep6SQcMg3Jk' . "\r\n" .
 		'Video Caption' . "\r\n" .
 		"\r\n";
