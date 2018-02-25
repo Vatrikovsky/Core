@@ -13,7 +13,10 @@ abstract class Markup {
 		'img' => TRUE,
 		'youtube' => TRUE,
 		'caption' => TRUE,
-		'p' => TRUE		
+		'p' => TRUE	,
+		'hpquotes' => TRUE,
+		'hpbrackets' => TRUE,
+		'cleanafter' => TRUE
 	];
 	
 	// Config
@@ -217,7 +220,64 @@ abstract class Markup {
 			'<p class="v-text">$1</p>',
 			$text 
 		);
-	}	
+	}
+	
+	
+	
+	
+	/* hpquotes */
+	/* Thanks to artgorbunov.ru */
+	public static function hpquotes( $text ) {
+		if ( !self::$methods['hpquotes'] ) return $text;
+		$tiny = array(
+			'ни', 'не', 'и', 'но', 'а', 'или', 'да', 'как', 
+			'из-за', 'про', 'по', 'за', 'для', 'на', 
+			'до', 'при', 'меж', 'о', 'у', 'в', 'во',
+			'с', 'со', 'от', 'ото', 'из', 'без', 'безо', 
+			'к', 'ко', 'об', 'обо', 'под', 'подо', 
+			'над', 'перед', 'передо');
+  
+  		$text = preg_replace('~(\s)«~', '<span class="v-hpspace-quote"> </span><span class="v-hpquote">«</span>', $text);
+		$text = preg_replace('~[^>]«~', '<span class="v-hpquote">«</span>', $text);
+		$text = preg_replace('~^«~', '<span class="v-hpquote">«</span>', $text);
+		$text = preg_replace(
+			'~(' . implode('|', $tiny) . ')\s<span class="v-hpspace-quote"> </span><span class="v-hpquote">«</span>~', 
+			'\1 «', $text);
+		return $text;
+	}
+	
+	
+	
+	
+	/* hpbrackets */
+	/* Thanks to artgorbunov.ru */
+	public static function hpbrackets( $text ) {
+		if ( !self::$methods['hpbrackets'] ) return $text;
+		$tiny = array(
+			'ни', 'не', 'и', 'но', 'а', 'или', 'да', 'как', 
+			'из-за', 'про', 'по', 'за', 'для', 'на', 
+			'до', 'при', 'меж', 'о', 'у', 'в', 'во',
+			'с', 'со', 'от', 'ото', 'из', 'без', 'безо', 
+			'к', 'ко', 'об', 'обо', 'под', 'подо', 
+			'над', 'перед', 'передо');
+  
+  		$text = preg_replace('~(\s)\(~', '<span class="v-hpspace-bracket"> </span><span class="v-hpbracket">(</span>', $text);
+		$text = preg_replace('~[^>]\(~', '<span class="v-hpbracket">(</span>', $text);
+		$text = preg_replace('~^\(~', '<span class="v-hpbracket">(</span>', $text);
+		$text = preg_replace(
+			'~(' . implode('|', $tiny) . ')\s<span class="v-hpspace-bracket"> </span><span class="v-hpbracket">\(</span>~', 
+			'\1 (', $text);
+		return $text;
+	}
+	
+	
+	
+	
+	/* clean empty p */
+	public static function cleanafter( $text ) {
+		if ( !self::$methods['cleanafter'] ) return $text;
+		return preg_replace( '~<p class="v-text">\s*</p>~', '', $text );
+	}
 }
 
 ?>
